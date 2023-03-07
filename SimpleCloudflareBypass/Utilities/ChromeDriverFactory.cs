@@ -38,12 +38,10 @@ public class ChromeDriverFactory : IDisposable
         options.AddArgument("--disable-software-rasterizer");
         options.AddAdditionalOption("useAutomationExtension", false);
         options.AddArgument("--disable-dev-shm-usage");
-        options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36");
-        TimeSpan commandTimeout = TimeSpan.FromSeconds(5);
-        ChromeDriver chromeDriver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, commandTimeout);
+        options.AddArgument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36");
+        ChromeDriver chromeDriver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options);
         DevToolsSession session = chromeDriver.GetDevToolsSession();
-        session.CommandTimeout = commandTimeout;
-        chromeDriver.Manage().Timeouts().PageLoad = commandTimeout;
+        chromeDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
         var domains = session.GetVersionSpecificDomains<OpenQA.Selenium.DevTools.V110.DevToolsSessionDomains>();
         domains.Page.Enable(new EnableCommandSettings());
         domains.Page.AddScriptToEvaluateOnNewDocument(new AddScriptToEvaluateOnNewDocumentCommandSettings()
@@ -65,9 +63,9 @@ public class ChromeDriverFactory : IDisposable
     {
         if (_chromeDriver is not null)
         {
-            if(_chromeDriver.HasActiveDevToolsSession is true)
+            if (_chromeDriver.HasActiveDevToolsSession is true)
                 _chromeDriver!.GetDevToolsSession().Dispose();
             _chromeDriver.Dispose();
-        }        
+        }
     }
 }

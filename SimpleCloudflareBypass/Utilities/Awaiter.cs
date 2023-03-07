@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 namespace SimpleCloudflareBypass.Utilities;
 
 public static class Awaiter
-{ 
+{
     public static async Task WaitAsync<TValue>(TValue value, Func<TValue, bool> action, int timeout, CancellationToken cancellationToken)
     {
         IClock clock = new SystemClock();
@@ -19,9 +19,8 @@ public static class Awaiter
             {
                 result = action(value);
             }
-            catch(WebDriverException)
-            { 
-            }           
+            catch (WebDriverException)
+            { }
             await Task.Delay(delay, cancellationToken);
         }
     }

@@ -21,7 +21,7 @@ public static class Cloudflare
     };
 
     public static IReadOnlyList<string> ChallengeTitles = new List<string>()
-    {       
+    {
         "Just a moment",
         "Один момент",
         "DDOS-GUARD",

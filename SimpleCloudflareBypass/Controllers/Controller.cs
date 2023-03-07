@@ -7,7 +7,7 @@ namespace SimpleCloudflareBypass.Controllers;
 
 public static class Controller
 {
-    private static Mutex _mutex = new Mutex(false);
+    private static SemaphoreSlim _semaphoreSlim = new(1);
 
     public static async Task<string> GetHtmlAsync([FromBody] GetHtmlRequest request, [FromServices] ChromeDriverFactory chromeDriverFactory, CancellationToken cancellationToken)
     {
@@ -18,9 +18,9 @@ public static class Controller
     {
         try
         {
-            _mutex.WaitOne();
+            await _semaphoreSlim.WaitAsync(cancellationToken);
             int rebootsCounter = 0;
-            while (rebootsCounter < request.RebootsCount && cancellationToken.IsCancellationRequested is false)
+            do
             {
                 try
                 {
@@ -32,11 +32,11 @@ public static class Controller
                     chromeDriverFactory.Reboot();
                     rebootsCounter++;
                 }
-            }
+            } while (rebootsCounter < request.RebootsCount && cancellationToken.IsCancellationRequested is false);
         }
         finally
         {
-            _mutex.ReleaseMutex();
+            _semaphoreSlim.Release();
         }
         throw new Exception("Can't resolve the cloudflare challenges.");
     }
@@ -45,14 +45,14 @@ public static class Controller
     {
         Console.WriteLine($"{DateTime.Now}: Start resolve the challenges, url({request.Url}).");
         IWebDriver webDriver = chromeDriverFactory.CreateIfCalledReboot();
-        webDriver.Url = request.Url;        
-        await WaitUntilResolvingChallengeAsync(webDriver, request.Timeout, cancellationToken);
+        webDriver.Url = request.Url;
+        await WaitUntilSolvingChallengeAsync(webDriver, request.Timeout, cancellationToken);
         Console.WriteLine($"{DateTime.Now}: Finish resolve the challenges, url({request.Url}).");
         return webDriver.PageSource;
     }
 
-    private static async ValueTask WaitUntilResolvingChallengeAsync(IWebDriver webDriver, int timeout, CancellationToken cancellationToken)
-    {        
+    private static async ValueTask WaitUntilSolvingChallengeAsync(IWebDriver webDriver, int timeout, CancellationToken cancellationToken)
+    {
         await Awaiter.WaitAsync(webDriver, driver =>
         {
             string pageTitle = webDriver.Title;

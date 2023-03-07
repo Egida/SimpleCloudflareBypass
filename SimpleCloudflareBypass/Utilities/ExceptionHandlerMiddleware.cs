@@ -19,7 +19,7 @@ public class ExceptionHandlerMiddleware
             await _next(context);
         }
         catch (Exception ex)
-        {           
+        {
             Console.WriteLine($"In endpoint was throwed exception, error = {ex.Message}");
             await WriteToResponseAsync(context, HttpStatusCode.UnprocessableEntity, ex.Message);
         }
