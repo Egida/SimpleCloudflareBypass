@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleCloudflareBypass", "SimpleCloudflareBypass\SimpleCloudflareBypass.csproj", "{120E8AC8-FED0-4454-BC8F-4CEE5A1E8CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCloudflareBypass.IntegrationTests", "Tests\SimpleCloudflareBypass.IntegrationTests\SimpleCloudflareBypass.IntegrationTests.csproj", "{80FA031E-2006-4535-BB8B-4703C741B0AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{120E8AC8-FED0-4454-BC8F-4CEE5A1E8CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120E8AC8-FED0-4454-BC8F-4CEE5A1E8CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120E8AC8-FED0-4454-BC8F-4CEE5A1E8CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120E8AC8-FED0-4454-BC8F-4CEE5A1E8CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80FA031E-2006-4535-BB8B-4703C741B0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80FA031E-2006-4535-BB8B-4703C741B0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80FA031E-2006-4535-BB8B-4703C741B0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80FA031E-2006-4535-BB8B-4703C741B0AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {953DCF7B-BDDE-420A-8E7E-B062BFA31274}
+	EndGlobalSection
+EndGlobal
